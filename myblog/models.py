@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from django.db import models
+from ckeditor_uploader.fields import RichTextUploadingField
 
 # Create your models here.
 
@@ -11,8 +12,7 @@ class Tag(models.Model):
 
 class Post(models.Model):
     post_title = models.CharField(max_length=100)
-    post_img = models.ImageField(upload_to='uploads/')
-    post_content = models.TextField()
+    post_content = RichTextUploadingField()
     post_publish_date = models.DateTimeField(auto_now_add=True)
     post_category = models.CharField(max_length=15)
     post_link = models.SlugField(max_length=200,default='NULL')

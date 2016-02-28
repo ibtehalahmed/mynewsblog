@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myblog',
+    'ckeditor',
+    'ckeditor_uploader',
+
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -78,9 +81,9 @@ WSGI_APPLICATION = 'mynewsblog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': '',
-        'USER':'',
-        'PASSWORD':'',
+        'NAME': 'myblog',
+        'USER':'root',
+        'PASSWORD':'ahh2010',
     }
 }
 
@@ -122,3 +125,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+
+CKEDITOR_CONFIGS = {
+    'default':{
+    'toolbar': None,
+    },
+}
+
+MEDIA_ROOT='/home/ahmedhamdy/Desktop/mynewsblog/uploads'
+MEDIA_URL = '/media/'
