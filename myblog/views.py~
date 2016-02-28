@@ -1,0 +1,49 @@
+from django.shortcuts import render
+
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import render
+from django.core.paginator import Paginator
+from .models import posts
+from django.http import request, HttpResponse, HttpResponseRedirect
+
+
+
+def index(request):
+	queryset_list = posts.objects.all()
+	paginator = Paginator(queryset_list,5)
+	page_num=request.GET.get('page')
+	try:
+        	queryset = paginator.page(page_num)
+	except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        	queryset = paginator.page(1)
+	except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        	queryset = paginator.page(paginator.num_pages)
+	
+	return render(request, 'index.html',{"queryset":queryset})
+
+
+def show(request):
+	# queryset = posts.objects.defer("post_category")
+	 queryset=posts.objects.order_by().values("post_category").distinct()
+	 return render (request,'section.html',{"queryset":queryset})
+	
+	
+def show_cat(request,cat):
+	queryset_list = posts.objects.filter(post_category=cat)
+	paginator = Paginator(queryset_list,3)
+	page_num=request.GET.get('page')
+	try:
+        	queryset = paginator.page(page_num)
+	except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        	queryset = paginator.page(1)
+	except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        	queryset = paginator.page(paginator.num_pages)
+
+	return render(request, 'index.html',{"queryset":queryset})
+
+
+

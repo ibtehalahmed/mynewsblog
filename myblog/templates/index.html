@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Test page</title>
+
+    <style type="text/css">
+        body{
+            font-family: Arial;
+            font-size: 12px;
+        }
+        .name-box{
+            padding: 10px;
+            font-size: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .spacer{
+            clear:both;
+            height: 10px;
+        }
+
+        .page, .prev, .next{
+            display: inline-block;
+            padding: 3px 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #333;
+            background: #eee;
+            font-weight: bold;
+        }
+        .page:hover, .prev:hover, .next:hover{
+            background: #333;
+        }
+        .page.current{
+            background: #333;
+            color: white;
+        }
+        .page.disabled, .prev.disabled, .next.disabled{
+            color: #ddd;
+            cursor: default;
+        }
+
+        form{
+            padding: 10px 5px;
+            border: 1px solid #ddd;
+        }
+        form div{
+            padding: 5px;
+        }
+        form label{
+            width: 133px;
+            display: inline-block;
+        }
+        form input[type="submit"]{
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<form action="" emthod="GET">
+</form>
+{% for query in queryset %}
+
+<div class="name-box">
+
+<div> 
+post: {{ query.post_title}}
+post: {{ query.post_img}}
+post: {{ query.post_content}}</div>
+
+</div>
+
+{% endfor %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if queryset.has_previous %}
+            <a href="?page={{  queryset.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ queryset.number }} of {{ queryset.paginator.num_pages }}.
+        </span>
+
+        {% if queryset.has_next %}
+            <a href="?page={{ queryset.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+
+{{ page.render }}
+
+</body>
+</html>
